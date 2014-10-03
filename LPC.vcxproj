@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7C44B052-5159-4150-B228-225CFBC6F837}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LPC</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="alglib\src\alglibinternal.h" />
+    <ClInclude Include="alglib\src\alglibmisc.h" />
+    <ClInclude Include="alglib\src\ap.h" />
+    <ClInclude Include="alglib\src\dataanalysis.h" />
+    <ClInclude Include="alglib\src\diffequations.h" />
+    <ClInclude Include="alglib\src\fasttransforms.h" />
+    <ClInclude Include="alglib\src\integration.h" />
+    <ClInclude Include="alglib\src\interpolation.h" />
+    <ClInclude Include="alglib\src\linalg.h" />
+    <ClInclude Include="alglib\src\optimization.h" />
+    <ClInclude Include="alglib\src\solvers.h" />
+    <ClInclude Include="alglib\src\specialfunctions.h" />
+    <ClInclude Include="alglib\src\statistics.h" />
+    <ClInclude Include="alglib\src\stdafx.h" />
+    <ClInclude Include="Counter.h" />
+    <ClInclude Include="Extremum.h" />
+    <ClInclude Include="ParamLoader.h" />
+    <ClInclude Include="Prominent.h" />
+    <ClInclude Include="Tracker.h" />
+    <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="alglib\src\alglibinternal.cpp" />
+    <ClCompile Include="alglib\src\alglibmisc.cpp" />
+    <ClCompile Include="alglib\src\ap.cpp" />
+    <ClCompile Include="alglib\src\dataanalysis.cpp" />
+    <ClCompile Include="alglib\src\diffequations.cpp" />
+    <ClCompile Include="alglib\src\fasttransforms.cpp" />
+    <ClCompile Include="alglib\src\integration.cpp" />
+    <ClCompile Include="alglib\src\interpolation.cpp" />
+    <ClCompile Include="alglib\src\linalg.cpp" />
+    <ClCompile Include="alglib\src\optimization.cpp" />
+    <ClCompile Include="alglib\src\solvers.cpp" />
+    <ClCompile Include="alglib\src\specialfunctions.cpp" />
+    <ClCompile Include="alglib\src\statistics.cpp" />
+    <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="Extremum.cpp" />
+    <ClCompile Include="LPC.cpp" />
+    <ClCompile Include="ParamLoader.cpp" />
+    <ClCompile Include="Prominent.cpp" />
+    <ClCompile Include="Tracker.cpp" />
+    <ClCompile Include="utils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

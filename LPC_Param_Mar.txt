@@ -1,0 +1,9 @@
+startIndex 10
+endIndex 220
+prominentWidthThre 16
+prominentHeightThre 1000
+laserHeight 3900
+gradient 1
+extremaGapThre 20
+leastExtremaDetectTime 2
+mostExtremaMissingTime 10

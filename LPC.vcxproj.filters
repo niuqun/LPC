@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\alglib">
+      <UniqueIdentifier>{75ef8352-9ba4-44b1-9d5c-dadc1ebab137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\alglib">
+      <UniqueIdentifier>{e6aaedf1-e844-468d-b01a-33d3996fcdb7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Counter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Prominent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extremum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\alglibinternal.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\alglibmisc.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\ap.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\dataanalysis.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\diffequations.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\fasttransforms.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\integration.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\interpolation.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\linalg.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\optimization.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\solvers.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\specialfunctions.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\statistics.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\stdafx.h">
+      <Filter>Header Files\alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Counter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Prominent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Extremum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\alglibinternal.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\alglibmisc.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\ap.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\dataanalysis.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\diffequations.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\fasttransforms.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\integration.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\interpolation.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\linalg.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\optimization.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\solvers.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\specialfunctions.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\statistics.cpp">
+      <Filter>Source Files\alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
