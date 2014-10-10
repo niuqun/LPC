@@ -4,6 +4,10 @@
 #include "alglib/src/interpolation.h"
 using namespace alglib;
 
+
+const int kMaxSingleLength = 50;
+
+
 Prominent::Prominent()
 {
 	start = -1;
@@ -147,4 +151,64 @@ int Prominent::GetExtrema(vector<Extremum> &extremaInProminent)
 		return extremaInProminent.size();
 	}
 	*/
+}
+
+vector<Prominent> Prominent::Splits()
+{
+	vector<Prominent> ps;
+
+	if (heightList.size() > kMaxSingleLength)
+	{
+		bool down = false;
+		int tmp_start = 0;
+
+		for (int i = 1; i < heightList.size(); ++i)
+		{
+			if (heightList[i] <= heightList[i - 1])
+			{
+				down = true;
+			}
+			else
+			{
+				if (down = true && i - tmp_start > 20)
+				{
+					Prominent p;
+
+					p.start = tmp_start + start;
+					p.finish = i + start - 1;
+					p.frame = frame;
+					p.plane = plane;
+					p.topIndex = (tmp_start + i - 1) / 2;
+					p.topHeight = heightList[p.topIndex];
+
+					for (int j = tmp_start; j <= i; ++j)
+					{
+						p.heightList.push_back(heightList[j]);
+					}
+					
+					down = false;
+
+					tmp_start = i;
+					ps.push_back(p);
+				}
+			}
+		}
+
+		// if no turning point(s) found, make this prominent
+		if (ps.empty())
+		{
+			ps.push_back(*this);
+		}
+	}
+	else
+	{
+		ps.push_back(*this);
+	}
+
+	return ps;
+}
+
+int Prominent::operator-(const Prominent &r) const
+{
+	return (abs(start - r.start) + abs(finish - r.finish));
 }

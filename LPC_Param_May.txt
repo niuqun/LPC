@@ -1,6 +1,6 @@
 startIndex 50
 endIndex 200
-prominentWidthThre 30
+prominentWidthThre 20
 prominentHeightThre 1000
 laserHeight 2700
 gradient 1

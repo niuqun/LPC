@@ -94,7 +94,7 @@
     <ClInclude Include="Extremum.h" />
     <ClInclude Include="ParamLoader.h" />
     <ClInclude Include="Prominent.h" />
-    <ClInclude Include="Tracker.h" />
+    <ClInclude Include="ProminentTracker.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +116,7 @@
     <ClCompile Include="LPC.cpp" />
     <ClCompile Include="ParamLoader.cpp" />
     <ClCompile Include="Prominent.cpp" />
-    <ClCompile Include="Tracker.cpp" />
+    <ClCompile Include="ProminentTracker.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

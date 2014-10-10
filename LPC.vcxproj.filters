@@ -30,9 +30,6 @@
     <ClInclude Include="Extremum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tracker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +78,9 @@
     <ClInclude Include="ParamLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProminentTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Counter.cpp">
@@ -90,9 +90,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Extremum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
@@ -141,6 +138,9 @@
       <Filter>Source Files\alglib</Filter>
     </ClCompile>
     <ClCompile Include="ParamLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProminentTracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include <vector>
 #include "Extremum.h"
 #include "Prominent.h"
-#include "Tracker.h"
+#include "ProminentTracker.h"
 
 // counts the number of people in and out
 class Counter
@@ -42,7 +42,7 @@ private:
 	int CalculateProminents(int height[], int start, int end, int frame);
 
 	vector<Prominent> prominentsInFrame;
-	Tracker tracker;
+	ProminentTracker tracker;
 	vector<Extremum> extremaInFrame;
 
 	int gradient;

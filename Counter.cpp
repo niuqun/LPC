@@ -23,13 +23,20 @@ void Counter::CountPeople(int height[], int start, int end, int frame,
 	PreprocessHeight(height, 274);
 	CalculateProminents(height, start, end, frame);
 
-	for (unsigned int i = 0; i < prominentsInFrame.size(); i++)
-	{
-		prominentsInFrame[i].GetExtrema(extremaInFrame);
-	}
+	//for (unsigned int i = 0; i < prominentsInFrame.size(); i++)
+	//{
+	//	prominentsInFrame[i].GetExtrema(extremaInFrame);
+	//}
 
-	tracker.AddExtrema(extremaInFrame);
+	//tracker.AddExtrema(extremaInFrame);
+	//tracker.SetCurrentFrame(frame);
+	//peopleIn += tracker.GetPeopleIn();
+	//peopleOut += tracker.GetPeopleOut();
+	//peopleUndefined += tracker.GetPeopleUndefined();
+
+	tracker.AddProminents(prominentsInFrame);
 	tracker.SetCurrentFrame(frame);
+	
 	peopleIn += tracker.GetPeopleIn();
 	peopleOut += tracker.GetPeopleOut();
 	peopleUndefined += tracker.GetPeopleUndefined();
@@ -90,7 +97,14 @@ int Counter::CalculateProminents(int height[], int start, int end, int frame)
 			if (detectFrame && i - 1 - tmpProminent.start >= prominentWidth)
 			{
 				tmpProminent.finish = i - 1;
-				prominentsInFrame.push_back(tmpProminent);
+				//prominentsInFrame.push_back(tmpProminent);
+
+				vector<Prominent> ps = tmpProminent.Splits();
+
+				for (int i = 0; i < ps.size(); ++i)
+				{
+					prominentsInFrame.push_back(ps[i]);
+				}
 			}
 			detectFrame = false;
 		}

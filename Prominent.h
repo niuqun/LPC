@@ -25,6 +25,17 @@ public:
 	// degree: to which degree to fit
 	void PolynomialFit(/*int degree*/);
 
+
+
+	// splits this prominent to several smaller prominents
+	vector<Prominent> Splits();
+
+
+
+	// overload the operator -, which calculates the difference between tow segments
+	int operator-(const Prominent &r) const;
+
+
 	int start;
 	int finish;
 	int frame;
