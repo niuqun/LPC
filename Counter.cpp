@@ -44,9 +44,26 @@ void Counter::CountPeople(int height[], int start, int end, int frame,
 
 void Counter::PreprocessHeight(int height[], int length)
 {
+	int height2[274] = {0};
+
+	for (int i = 0; i < 274; ++i)
+	{
+		height[i] = laserHeight - height[i];
+	}
+
+	for (int i = 1; i < 273; ++i)
+	{
+		height2[i] = (height[i - 1] + height[i] * 2 + height[i + 1]) / 4;
+	}
+
+	for (int i = 1; i < 273; ++i)
+	{
+		height[i] = height2[i];
+	}
+
 	for (int i = 0; i < 274; i++)
 	{
-		height[i] = laserHeight - height[i]/* * 19 / 25*/;
+		//height[i] = laserHeight - height[i]/* * 19 / 25*/;
 		if (height[i] < prominentHeight)
 		{
 			height[i] = 0;

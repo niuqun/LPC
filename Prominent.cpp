@@ -170,7 +170,8 @@ vector<Prominent> Prominent::Splits()
 			}
 			else
 			{
-				if (down = true && i - tmp_start > 20)
+				if (down == true && heightList[i] - heightList[i - 1] > 10 &&
+					i - tmp_start > 20)
 				{
 					Prominent p;
 
@@ -181,7 +182,7 @@ vector<Prominent> Prominent::Splits()
 					p.topIndex = (tmp_start + i - 1) / 2;
 					p.topHeight = heightList[p.topIndex];
 
-					for (int j = tmp_start; j <= i; ++j)
+					for (int j = tmp_start; j < i; ++j)
 					{
 						p.heightList.push_back(heightList[j]);
 					}
@@ -190,6 +191,10 @@ vector<Prominent> Prominent::Splits()
 
 					tmp_start = i;
 					ps.push_back(p);
+				}
+				else
+				{
+					down = false;
 				}
 			}
 		}
