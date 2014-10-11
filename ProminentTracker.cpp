@@ -139,16 +139,23 @@ int ProminentTracker::CalculatePeopleInOut(int i)
 	for (int j = 0; j < max - min + 1; ++j)
 	{
 		int max_height = 0;
+		int first_non_zero = 0;
+		int k;
 
-		for (int k = 1; k < length; ++k)
+		while (heights[first_non_zero][j] == 0)
 		{
-			if (heights[k][j] > heights[k][max_height])
+			++first_non_zero;
+		}
+
+		for (k = first_non_zero; heights[k][j] != 0; ++k)
+		{
+			if (heights[k][j] > heights[max_height][j])
 			{
 				max_height = k;
 			}
 		}
 
-		if (max_height > length / 2)
+		if (max_height - first_non_zero + 1 > (k - first_non_zero) / 2)
 		{
 			++in;
 		}
