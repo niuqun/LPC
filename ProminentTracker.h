@@ -3,6 +3,13 @@
 
 #include "Prominent.h"
 
+enum Direction
+{
+	In,
+	Out,
+	Undefined
+};
+
 class ProminentTracker
 {
 public:
@@ -36,6 +43,11 @@ public:
 	// sets most missing time
 	int SetMostMissingTime(int mostTime);
 
+	// calculates the list of minimum points the height
+	// data: the height array
+	// length: the length of height array
+	vector<int> CalculateMinimum(const int data[], int length);
+
 private:
 
 	// adds a prominent to tracker, returns true if successful, false otherwise
@@ -44,7 +56,14 @@ private:
 
 	// counts the newly detected number of people
 	// i: the index to which group of prominents to be calculated
-	int CalculatePeopleInOut(int i);
+	void CalculatePeopleInOut(int i);
+
+
+	// votes for the direction of the pedestrian
+	// heights: the height matrix of the height matrix
+	// row: row number of height matrix
+	// returns the in/out/undefined direction of the pedestrian
+	Direction CalculateDirection(int heights[][100], int row, int start, int finish);
 
 private:
 	vector<Prominent> prominents[30];

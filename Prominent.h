@@ -32,8 +32,9 @@ public:
 
 
 
-	// overload the operator -, which calculates the difference between tow segments
-	int operator-(const Prominent &r) const;
+	// overload the operator -, which calculates the matching rate
+	// between two segments, say the number of common detection points
+	double operator-(const Prominent &r) const;
 
 
 	int start;

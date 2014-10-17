@@ -44,7 +44,7 @@ void Counter::CountPeople(int height[], int start, int end, int frame,
 
 void Counter::PreprocessHeight(int height[], int length)
 {
-	int height2[274] = {0};
+	/*int height2[274] = {0};
 
 	for (int i = 0; i < 274; ++i)
 	{
@@ -59,11 +59,11 @@ void Counter::PreprocessHeight(int height[], int length)
 	for (int i = 1; i < 273; ++i)
 	{
 		height[i] = height2[i];
-	}
+	}*/
 
 	for (int i = 0; i < 274; i++)
 	{
-		//height[i] = laserHeight - height[i]/* * 19 / 25*/;
+		height[i] = laserHeight - height[i] * 19 / 25;
 		if (height[i] < prominentHeight)
 		{
 			height[i] = 0;
@@ -114,14 +114,14 @@ int Counter::CalculateProminents(int height[], int start, int end, int frame)
 			if (detectFrame && i - 1 - tmpProminent.start >= prominentWidth)
 			{
 				tmpProminent.finish = i - 1;
-				//prominentsInFrame.push_back(tmpProminent);
+				prominentsInFrame.push_back(tmpProminent);
 
-				vector<Prominent> ps = tmpProminent.Splits();
+				/*vector<Prominent> ps = tmpProminent.Splits();
 
 				for (int i = 0; i < ps.size(); ++i)
 				{
 					prominentsInFrame.push_back(ps[i]);
-				}
+				}*/
 			}
 			detectFrame = false;
 		}

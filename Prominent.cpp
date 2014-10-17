@@ -213,7 +213,44 @@ vector<Prominent> Prominent::Splits()
 	return ps;
 }
 
-int Prominent::operator-(const Prominent &r) const
+double Prominent::operator-(const Prominent &r) const
 {
-	return (abs(start - r.start) + abs(finish - r.finish));
+	//return (abs(start - r.start) + abs(finish - r.finish));
+
+	int length = finish - start + 1;
+	int length_r = r.finish - r.start + 1;
+
+	int min_length = (length < length_r) ? length : length_r;
+
+	double common_ratio = 0.0;
+
+	if (r.start > finish || r.finish < start)
+	{
+		return common_ratio;
+	}
+
+	if (r.finish <= finish)
+	{
+		if (r.start >= start)
+		{
+			common_ratio = 1.0;
+		}
+		else
+		{
+			common_ratio = static_cast<double>(r.finish - start + 1) / min_length;
+		}
+	}
+	else
+	{
+		if (r.start >= start)
+		{
+			common_ratio = static_cast<double>(finish - r.start + 1) / min_length;
+		}
+		else
+		{
+			common_ratio = 1;
+		}
+	}
+
+	return common_ratio;
 }
