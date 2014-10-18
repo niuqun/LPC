@@ -254,3 +254,26 @@ double Prominent::operator-(const Prominent &r) const
 
 	return common_ratio;
 }
+
+bool Prominent::operator<(const Prominent &pRight) const
+{
+	if (start < pRight.start)
+	{
+		return true;
+	}
+	else if (start == pRight.start)
+	{
+		if (finish < pRight.finish)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}

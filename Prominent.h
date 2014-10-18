@@ -37,6 +37,11 @@ public:
 	double operator-(const Prominent &r) const;
 
 
+	// overload the operator <, which evaluates betwween two prominents
+	// returns true if left is smaller, which means a smaller left bound size
+	// false otherwise
+	bool operator<(const Prominent &pRight) const;
+
 	int start;
 	int finish;
 	int frame;

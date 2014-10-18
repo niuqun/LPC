@@ -18,9 +18,10 @@ ProminentTracker::ProminentTracker(int leastDetect, int mostMissing)
 	peopleUndefined = 0;
 }
 
-int ProminentTracker::FindProminentId(const Prominent &prominent)
+vector<int> ProminentTracker::FindProminentId(const Prominent &prominent)
 {
 	double matching_rate[30] = {0};
+	vector<int> matched_ids;
 
 	for (int i = 0; i < 30; ++i)
 	{
@@ -34,47 +35,138 @@ int ProminentTracker::FindProminentId(const Prominent &prominent)
 		}
 	}
 
-	int min_diff_id = 0;
+	int max_similarity_index = 0;
 
 	for (int i = 1; i < 30; ++i)
 	{
-		if (matching_rate[i] > matching_rate[min_diff_id])
+		if (matching_rate[i] > matching_rate[max_similarity_index])
 		{
-			min_diff_id = i;
+			max_similarity_index = i;
 		}
 	}
 
-	if (matching_rate[min_diff_id] < 0.30)
+
+	if (matching_rate[max_similarity_index] < 0.30)
 	{
 		for (int i = 0; i < 30; ++i)
 		{
 			if (prominents[i].size() == 0)
 			{
-				return i;
+				matched_ids.push_back(i);
+				break;
+			}
+		}
+	}
+	else
+	{
+		matched_ids.push_back(max_similarity_index);
+
+		if (matching_rate[max_similarity_index] > 0.8)
+		{
+
+			for (int i = 0; i < 30; ++i)
+			{
+				if (i != max_similarity_index)
+				{
+					if (matching_rate[i] > 0.8)
+					{
+						matched_ids.push_back(matching_rate[i]);
+					}
+				}
 			}
 		}
 	}
 
-	return min_diff_id;
+	return matched_ids;
 }
 
 bool ProminentTracker::AddProminents(const vector<Prominent> &prominents)
 {
 	for (int i = 0; i < prominents.size(); ++i)
 	{
-		int id = FindProminentId(prominents[i]);
+		vector<int> id = FindProminentId(prominents[i]);
 
-		if (id != -1)
+
+		if (id.size() > 1)
+		{
+			// several candidates, may need a merge
+			vector<Prominent> ps;
+
+			for (int j = 0; j < id.size(); ++j)
+			{
+				ps.push_back(this->prominents[j].back());
+			}
+
+			if (AreProminentOverlapped(ps))
+			{
+				for (int j = 1; j < id.size(); ++j)
+				{
+					for (int k = 0; k < this->prominents[id[j]].size(); ++k)
+					{
+						this->prominents[id[0]].push_back(this->prominents[id[j]][k]);
+					}
+					this->prominents[id[j]].clear();
+				}
+			}
+
+			this->prominents[id[0]].push_back(prominents[i]);
+		}
+		else if (id.size() == 1)
+		{
+			int t = id[0];
+
+			this->prominents[t].push_back(prominents[i]);
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+		/*if (id != -1)
 		{
 			this->prominents[id].push_back(prominents[i]);
 		}
 		else
 		{
 			return false;
-		}
+		}*/
 	}
 
 	return true;
+}
+
+bool ProminentTracker::AreProminentOverlapped(vector<Prominent> &ps)
+{
+	int start_index;
+	int finish_index;
+	bool are_overlapped = true;
+
+	sort(ps.begin(), ps.end());
+
+	start_index = ps[0].start;
+	finish_index = ps[0].finish;
+
+	for (int i = 1; i < ps.size(); ++i)
+	{
+		if (ps[i].start > finish_index)
+		{
+			are_overlapped = false;
+			break;
+		}
+		else if (ps[i].start >= start_index)
+		{
+			finish_index = (ps[i].finish > finish_index) ? ps[i].finish : finish_index;
+		}
+		else
+		{
+			start_index = ps[i].start;
+			finish_index = (ps[i].finish > finish_index) ? ps[i].finish : finish_index;
+		}
+	}
+
+	return are_overlapped;
 }
 
 int ProminentTracker::SetCurrentFrame(int currentFrame)
@@ -316,21 +408,23 @@ vector<int> ProminentTracker::CalculateMinimum(const int data[], int length)
 	smoothed_height.push_back(data[last_non_zero]);
 
 	bool is_down = false;
+	int last_minimum = 0;
 
 	if (smoothed_height.size() > 20)
 	{
 		for (int i = 1; i < smoothed_height.size(); ++i)
 		{
-			if (smoothed_height[i] <= smoothed_height[i - 1])
+			if (smoothed_height[i] - smoothed_height[i - 1] < -8)
 			{
 				is_down = true;
 			}
 			else
 			{
-				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 10
-					&& i > 20)
+				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 8
+					&& i - last_minimum > 20)
 				{
-					minimum.push_back(i - 1);
+					minimum.push_back(i - 1 + first_non_zero);
+					last_minimum = i;
 				}
 
 				is_down = false;
