@@ -414,13 +414,13 @@ vector<int> ProminentTracker::CalculateMinimum(const int data[], int length)
 	{
 		for (int i = 1; i < smoothed_height.size(); ++i)
 		{
-			if (smoothed_height[i] - smoothed_height[i - 1] < -8)
+			if (smoothed_height[i] - smoothed_height[i - 1] < -10)
 			{
 				is_down = true;
 			}
 			else
 			{
-				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 8
+				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 10
 					&& i - last_minimum > 20)
 				{
 					minimum.push_back(i - 1 + first_non_zero);
