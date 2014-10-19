@@ -70,7 +70,7 @@ vector<int> ProminentTracker::FindProminentId(const Prominent &prominent)
 				{
 					if (matching_rate[i] > 0.8)
 					{
-						matched_ids.push_back(matching_rate[i]);
+						matched_ids.push_back(i);
 					}
 				}
 			}
@@ -97,41 +97,91 @@ bool ProminentTracker::AddProminents(const vector<Prominent> &prominents)
 				ps.push_back(this->prominents[j].back());
 			}
 
+			// pop back the hollow prominent at the end of each prominents queue
+			Prominent hollow = this->prominents[id[0]].back();
+
+			this->prominents[id[0]].pop_back();
+
 			if (AreProminentOverlapped(ps))
 			{
 				for (int j = 1; j < id.size(); ++j)
 				{
-					for (int k = 0; k < this->prominents[id[j]].size(); ++k)
+					for (int k = 0; k < this->prominents[id[j]].size() - 1; ++k)
 					{
+						if (this->prominents[id[j]][k].start < hollow.start)
+						{
+							hollow.start = this->prominents[id[j]][k].start;
+						}
+
+						if (this->prominents[id[j]][k].finish > hollow.finish)
+						{
+							hollow.finish = this->prominents[id[j]][k].finish;
+						}
+
 						this->prominents[id[0]].push_back(this->prominents[id[j]][k]);
 					}
 					this->prominents[id[j]].clear();
 				}
 			}
 
+			if (prominents[i].start < hollow.start)
+			{
+				hollow.start = prominents[i].start;
+			}
+
+			if (prominents[i].finish > hollow.finish)
+			{
+				hollow.finish = prominents[i].finish;
+			}
+
+			hollow.frame = prominents[i].frame;
+			hollow.plane = prominents[i].plane;
+
 			this->prominents[id[0]].push_back(prominents[i]);
+
+			this->prominents[id[0]].push_back(hollow);
 		}
 		else if (id.size() == 1)
 		{
 			int t = id[0];
+			Prominent hollow;
+
+			if (this->prominents[t].size() == 0)
+			{
+				hollow.start = prominents[i].start;
+				hollow.finish = prominents[i].finish;
+				hollow.frame = prominents[i].frame;
+				hollow.plane = prominents[i].plane;
+			}
+			else
+			{
+				hollow = this->prominents[t].back();
+				
+				this->prominents[t].pop_back();
+
+				if (prominents[i].start < hollow.start)
+				{
+					hollow.start = prominents[i].start;
+				}
+
+				if (prominents[i].finish > hollow.finish)
+				{
+					hollow.finish = prominents[i].finish;
+				}
+
+				hollow.frame = prominents[i].frame;
+				hollow.plane = prominents[i].plane;
+			}
 
 			this->prominents[t].push_back(prominents[i]);
 
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+			this->prominents[i].push_back(hollow);
 
-		/*if (id != -1)
-		{
-			this->prominents[id].push_back(prominents[i]);
 		}
 		else
 		{
 			return false;
-		}*/
+		}
 	}
 
 	return true;
@@ -196,6 +246,8 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 	int min = 300;
 	// maximum end point
 	int max = 0;
+
+	this->prominents[i].pop_back();
 
 	int length = prominents[i].size();
 
@@ -414,13 +466,13 @@ vector<int> ProminentTracker::CalculateMinimum(const int data[], int length)
 	{
 		for (int i = 1; i < smoothed_height.size(); ++i)
 		{
-			if (smoothed_height[i] - smoothed_height[i - 1] < -10)
+			if (smoothed_height[i] - smoothed_height[i - 1] < -8)
 			{
 				is_down = true;
 			}
 			else
 			{
-				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 10
+				if (is_down && smoothed_height[i] - smoothed_height[i - 1] > 8
 					&& i - last_minimum > 20)
 				{
 					minimum.push_back(i - 1 + first_non_zero);

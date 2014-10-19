@@ -10,12 +10,12 @@ const int kMaxSingleLength = 50;
 
 Prominent::Prominent()
 {
-	start = -1;
-	finish = -1;
+	start = 1000;
+	finish = 0;
 	frame = 0;
 	topIndex = -1;
 	topHeight = -1;
-	plane = -1;
+	plane = 0;
 	heightList.clear();
 }
 
