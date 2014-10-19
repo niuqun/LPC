@@ -175,7 +175,7 @@ bool ProminentTracker::AddProminents(const vector<Prominent> &prominents)
 
 			this->prominents[t].push_back(prominents[i]);
 
-			this->prominents[i].push_back(hollow);
+			this->prominents[t].push_back(hollow);
 
 		}
 		else
