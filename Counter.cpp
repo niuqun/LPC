@@ -63,7 +63,7 @@ void Counter::PreprocessHeight(int height[], int length)
 
 	for (int i = 0; i < 274; i++)
 	{
-		height[i] = laserHeight - height[i] * 19 / 25;
+		height[i] = laserHeight - height[i]/* * 19 / 25*/;
 		if (height[i] < prominentHeight)
 		{
 			height[i] = 0;

@@ -94,7 +94,7 @@ bool ProminentTracker::AddProminents(const vector<Prominent> &prominents)
 
 			for (int j = 0; j < id.size(); ++j)
 			{
-				ps.push_back(this->prominents[j].back());
+				ps.push_back(this->prominents[id[j]].back());
 			}
 
 			// pop back the hollow prominent at the end of each prominents queue
