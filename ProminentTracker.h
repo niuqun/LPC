@@ -11,6 +11,14 @@ enum Direction
 	Undefined
 };
 
+struct segment
+{
+	int start;
+	int finish;
+	double average;
+	double standard_deviation;
+};
+
 class ProminentTracker
 {
 public:
@@ -51,6 +59,23 @@ public:
 	// data: the height array
 	// length: the length of height array
 	vector<int> CalculateMinimum(const int data[], int length);
+
+	// returns the number of possible heads
+	vector<segment> CalculateHeads(const int data[], int length);
+
+	// returns the average height of a given array
+	// data: height array
+	// start: starting point
+	// finish: end point
+	double CalculateAverageHeight(const int data[], int start, int finish);
+
+	// returns the standard deviation of a given array
+	// data: height array
+	// start: starting point
+	// finish: end point
+	// average: average value of height array
+	double CalculateStandardDeviation(const int data[],
+		double average, int start, int finish);
 
 private:
 

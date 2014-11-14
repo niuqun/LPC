@@ -288,8 +288,10 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 
 
 	// detects the number of people walking in parallel
-	vector<int> minimum = CalculateMinimum(front_height, 274);
+	//vector<int> minimum = CalculateMinimum(front_height, 274);
+	vector<segment> heads = CalculateHeads(front_height, 274);
 
+	/*
 	if (minimum.size() > 0)
 	{
 		int start_index = 0;
@@ -316,53 +318,32 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 			start_index = end_index;
 		}
 	}
+	*/
 
 
-	// votes for the direction of the prominent
-	/*int in = 0;
-	int out = 0;
-
-	for (int j = 0; j < max - min + 1; ++j)
+	if (heads.size() > 0)
 	{
-		int max_height = 0;
-		int first_non_zero = 0;
-		int k;
-
-		while (heights[first_non_zero][j] == 0)
+		for (int i = 0; i < heads.size(); ++i)
 		{
-			++first_non_zero;
-		}
+			int start_index = heads[i].start - min;
+			int finish_index = heads[i].finish - min;
 
-		for (k = first_non_zero; heights[k][j] != 0; ++k)
-		{
-			if (heights[k][j] > heights[max_height][j])
+			Direction d = CalculateDirection(heights, 20, start_index, finish_index);
+
+			if (d == In)
 			{
-				max_height = k;
+				++peopleIn;
+			}
+			else if (d == Out)
+			{
+				++peopleOut;
+			}
+			else
+			{
+				++peopleUndefined;
 			}
 		}
-
-		if (max_height - first_non_zero + 1 > (k - first_non_zero) / 2)
-		{
-			++in;
-		}
-		else
-		{
-			++out;
-		}
-	}*/
-
-	/*if (in > out)
-	{
-		++peopleIn;
 	}
-	else if (in < out)
-	{
-		++peopleOut;
-	}
-	else
-	{
-		++peopleUndefined;
-	}*/
 
 	prominents[i].clear();
 }
@@ -428,7 +409,7 @@ vector<int> ProminentTracker::CalculateMinimum(const int data[], int length)
 	//int smoothed_height[274] = {0};
 	vector<int> smoothed_height;
 
-	// stores the list of miminum
+	// stores the list of mimimum
 	vector<int> minimum;
 
 	int first_non_zero = 0;
@@ -502,4 +483,115 @@ int ProminentTracker::SetMostMissingTime(int mostTime)
 	mostMissingTime = mostTime;
 
 	return 0;
+}
+
+vector<segment> ProminentTracker::CalculateHeads(const int data[], int length)
+{
+	vector<segment> heads;
+
+	const int segment_length = 20;
+
+	if (length < segment_length)
+	{
+		segment s;
+
+		s.start = 0;
+		s.finish = length - 1;
+		s.average = CalculateAverageHeight(data, s.start, s.finish);
+		s.standard_deviation =
+			CalculateStandardDeviation(data, s.average, s.start, s.finish);
+
+		heads.push_back(s);
+	}
+	else
+	{
+		vector<segment> segments;
+
+		for (int i = 0; i < length - segment_length; ++i)
+		{
+			segment s;
+
+			s.start = i;
+			s.finish = i + segment_length - 1;
+			s.average = CalculateAverageHeight(data, s.start, s.finish);
+			s.standard_deviation =
+				CalculateStandardDeviation(data, s.average, s.start, s.finish);
+
+			segments.push_back(s);
+		}
+
+		if (segments.size() < 3)
+		{
+			if (segments[0].average > segments[1].average)
+			{
+				heads.push_back(segments[0]);
+			}
+			else
+			{
+				heads.push_back(segments[1]);
+			}
+		}
+		else
+		{
+			bool is_increasing = false;
+
+			for (int i = 1; i < segments.size(); ++i)
+			{
+				if (segments[i].average > segments[i - 1].average)
+				{
+					is_increasing = true;
+				}
+				else if (segments[i].average < segments[i - 1].average)
+				{
+					if (is_increasing)
+					{
+						if (heads.size() > 0)
+						{
+							segment s_tmp = heads.back();
+
+							if (s_tmp.finish > segments[i - 1].start)
+							{
+								heads.pop_back();
+								segments[i - 1].start = s_tmp.start;
+							}
+						}
+						heads.push_back(segments[i - 1]);
+					}
+					is_increasing = false;
+				}
+				else
+				{
+					// do nothing
+				}
+			}
+		}
+		
+	}
+
+	return heads;
+}
+
+double ProminentTracker::CalculateAverageHeight(const int data[], int start, int finish)
+{
+	double average = 0;
+
+	for (int i = start; i <= finish; ++i)
+	{
+		average += data[i];
+	}
+
+	return average / ((double)(finish - start + 1));
+}
+
+double ProminentTracker::CalculateStandardDeviation(const int data[],
+	double average, int start, int finish)
+{
+	double standard_deviation = 0;
+
+	for (int i = 0; i <= finish; ++i)
+	{
+		standard_deviation += (data[i] - average) * (data[i] - average);
+	}
+
+	return sqrt(standard_deviation);
 }
