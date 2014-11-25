@@ -3,7 +3,7 @@
 #define MAX_DIFFERENCE 1000
 
 ProminentTracker::ProminentTracker()
-	: leastDetectTime(3), mostMissingTime(3)
+	: leastDetectTime(3), mostMissingTime(1)
 {
 	peopleIn = 0;
 	peopleOut = 0;
