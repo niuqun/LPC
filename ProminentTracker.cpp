@@ -96,6 +96,7 @@ bool ProminentTracker::AddProminents(const vector<Prominent> &prominents)
 			{
 				ps.push_back(this->prominents[id[j]].back());
 			}
+			ps.push_back(prominents[i]);
 
 			// pop back the hollow prominent at the end of each prominents queue
 			Prominent hollow = this->prominents[id[0]].back();
@@ -252,10 +253,23 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 	int length = prominents[i].size();
 
 	// stores height values of prominents
-	int heights[20][100] = {0};
+	int heights[20][274] = {0};
 
 	// stores the height of highest point in each detection point
 	int front_height[274] = {0};
+
+	// stores the first starting frame
+	int start_frame = this->prominents[i].front().frame;
+	int current_frame;
+
+	for (int j = 1; j < this->prominents[i].size(); ++j)
+	{
+		if (this->prominents[i][j].frame < start_frame)
+		{
+			start_frame = this->prominents[i][j].frame;
+		}
+	}
+
 
 	for (int j = 0; j < length; ++j)
 	{
@@ -272,6 +286,8 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 
 	for (int j = 0; j < length; ++j)
 	{
+		current_frame = this->prominents[i][j].frame;
+		
 		for (int k = 0; k < prominents[i][j].heightList.size(); ++k)
 		{
 
@@ -281,7 +297,7 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 					prominents[i][j].heightList[k];
 			}
 
-			heights[j][k + prominents[i][j].start - min] =
+			heights[current_frame - start_frame][k + prominents[i][j].start - min] =
 				prominents[i][j].heightList[k];
 		}
 	}
@@ -348,7 +364,7 @@ void ProminentTracker::CalculatePeopleInOut(int i)
 	prominents[i].clear();
 }
 
-Direction ProminentTracker::CalculateDirection(int heights[][100], int row,
+Direction ProminentTracker::CalculateDirection(int heights[][274], int row,
 	int start, int finish)
 {
 	int in = 0;
@@ -513,7 +529,7 @@ vector<segment> ProminentTracker::CalculateHeads(const int data[], int length)
 
 			s.start = i;
 			s.finish = i + segment_length - 1;
-			s.average = CalculateAverageHeight(data, s.start, s.finish);
+			s.average = (int)(CalculateAverageHeight(data, s.start, s.finish) / 20) * 20;
 			s.standard_deviation =
 				CalculateStandardDeviation(data, s.average, s.start, s.finish);
 
@@ -545,7 +561,7 @@ vector<segment> ProminentTracker::CalculateHeads(const int data[], int length)
 				{
 					if (is_increasing)
 					{
-						if (heads.size() > 0)
+						/*if (heads.size() > 0)
 						{
 							segment s_tmp = heads.back();
 
@@ -555,7 +571,32 @@ vector<segment> ProminentTracker::CalculateHeads(const int data[], int length)
 								segments[i - 1].start = s_tmp.start;
 							}
 						}
-						heads.push_back(segments[i - 1]);
+						heads.push_back(segments[i - 1]);*/
+
+						if (heads.size() > 0)
+						{
+							segment s_tmp = heads.back();
+
+							int segment_gap;
+
+							if (segments[i - 1].start > 200 || segments[i - 1].finish < 100)
+							{
+								segment_gap = 30;
+							}
+							else
+							{
+								segment_gap = 40;
+							}
+
+							if (segments[i - 1].start - s_tmp.finish >= segment_gap)
+							{
+								heads.push_back(segments[i - 1]);
+							}
+						}
+						else
+						{
+							heads.push_back(segments[i - 1]);
+						}
 					}
 					is_increasing = false;
 				}

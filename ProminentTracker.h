@@ -15,7 +15,7 @@ struct segment
 {
 	int start;
 	int finish;
-	double average;
+	int average;
 	double standard_deviation;
 };
 
@@ -92,7 +92,7 @@ private:
 	// heights: the height matrix of the height matrix
 	// row: row number of height matrix
 	// returns the in/out/undefined direction of the pedestrian
-	Direction CalculateDirection(int heights[][100], int row, int start, int finish);
+	Direction CalculateDirection(int heights[][274], int row, int start, int finish);
 
 private:
 	vector<Prominent> prominents[30];

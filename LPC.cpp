@@ -88,9 +88,10 @@ int main()
 
 			cout << "Processing frame: " << frameId << endl;
 
-			frameId++;
+			
 			if (planeNumber == 0)
 			{
+				frameId++;
 				counter.CountPeople(heights, startIndex, endIndex, frameId,
 					peopleInNumber, peopleOutNumber, peopleUndefinedNumber);
 			}
